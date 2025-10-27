@@ -1,0 +1,66 @@
+import java.util.Scanner;
+
+public class DisasterAlertMain {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        AlertSystem system = new AlertSystem();
+        int choice = 0;
+
+        do {
+            System.out.println("\n=== DISASTER ALERT SYSTEM ===");
+            System.out.println("1. Add Flood Alert");
+            System.out.println("2. Add Earthquake Alert");
+            System.out.println("3. Add Cyclone Alert");
+            System.out.println("4. View All Alerts");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            if(!sc.hasNextInt()){
+                sc.nextLine();
+                System.out.println("Enter a valid number!");
+                continue;
+            }
+            choice = sc.nextInt();
+            sc.nextLine(); // clear buffer
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter location: ");
+                    String fLoc = sc.nextLine();
+                    System.out.print("Enter severity level (1-10): ");
+                    int fSev = sc.nextInt();
+                    sc.nextLine();
+                    system.addAlert(new Flood(fLoc, fSev));
+                    System.out.println("Flood alert added!");
+                    break;
+                case 2:
+                    System.out.print("Enter location: ");
+                    String eLoc = sc.nextLine();
+                    System.out.print("Enter magnitude (1-10): ");
+                    int eSev = sc.nextInt();
+                    sc.nextLine();
+                    system.addAlert(new Earthquake(eLoc, eSev));
+                    System.out.println("Earthquake alert added!");
+                    break;
+                case 3:
+                    System.out.print("Enter location: ");
+                    String cLoc = sc.nextLine();
+                    System.out.print("Enter severity level (1-10): ");
+                    int cSev = sc.nextInt();
+                    sc.nextLine();
+                    system.addAlert(new Cyclone(cLoc, cSev));
+                    System.out.println("Cyclone alert added!");
+                    break;
+                case 4:
+                    system.displayAllAlerts();
+                    break;
+                case 5:
+                    System.out.println("Exiting... Stay safe!");
+                    break;
+                default:
+                    System.out.println("Invalid choice! Try again.");
+            }
+        } while (choice != 5);
+
+        sc.close();
+    }
+}
